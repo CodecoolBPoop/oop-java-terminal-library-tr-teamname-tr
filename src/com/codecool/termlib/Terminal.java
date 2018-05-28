@@ -1,5 +1,6 @@
 package com.codecool.termlib;
 
+
 public class Terminal {
     /**
      * The beginning of control sequences.
@@ -38,6 +39,7 @@ public class Terminal {
      * Might reset cursor position.
      */
     public void clearScreen() {
+        System.out.print("\033[0;0f\033[J");
     }
 
     /**
@@ -50,6 +52,7 @@ public class Terminal {
      * @param y Row number.
      */
     public void moveTo(Integer x, Integer y) {
+        System.out.print(String.format("\033[%s;%sf", x, y));
     }
 
     /**
@@ -92,6 +95,10 @@ public class Terminal {
      * @param amount Step the cursor this many times.
      */
     public void moveCursor(Direction direction, Integer amount) {
+        if(direction == Direction.FORWARD){System.out.print(String.format("\033[%sC", amount));}
+        if(direction == Direction.BACKWARD){System.out.print(String.format("\033[%sD", amount));}
+        if(direction == Direction.UP){System.out.print(String.format("\033[%sA", amount));}
+        if(direction == Direction.DOWN){System.out.print(String.format("\033[%sB", amount));}
     }
 
     /**
@@ -105,6 +112,7 @@ public class Terminal {
      * position.
      */
     public void setChar(char c) {
+        System.out.print(c); // TODO nem tudom mit kell csinálni
     }
 
     /**
