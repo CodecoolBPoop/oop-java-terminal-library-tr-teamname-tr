@@ -12,7 +12,7 @@ public class Test {
                     
                     // respond to key character
                 }
-            } catch (Exception e) {
+            } catch (Exception ee) {
             
             }
         }
