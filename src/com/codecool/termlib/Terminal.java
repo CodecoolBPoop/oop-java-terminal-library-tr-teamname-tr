@@ -64,12 +64,11 @@ public class Terminal {
     }
     
     
-    public static void initScreen(int[][] map) {
-        Terminal.clearScreen();
+    public static void draw(int[][] map) {
         
-        for(int y=0;y<map.length;y++){
-            for(int x=0;x<map[y].length;x++){
-                moveTo(y+1,x+1);
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[y].length; x++) {
+                moveTo(y + 1, x + 1);
                 
                 System.out.print(map[y][x]);
             }
@@ -77,7 +76,11 @@ public class Terminal {
         }
         
         
-        
+    }
+    
+    public static void setTerminalToDefault() throws IOException, InterruptedException {
+        ttyConfig = stty("-g");
+        stty("cooked echo");
     }
     
     /**
@@ -142,12 +145,12 @@ public class Terminal {
         System.out.print("\033[0;0f\033[J");
     }
     
- 
+    
     public static void moveTo(Integer x, Integer y) {
         System.out.print(String.format("\033[%s;%sf", x, y));
     }
     
- 
+    
     public static String setColor(Color color) {
         String colorStr = "";
         if (color == Color.BLACK) {
@@ -172,13 +175,11 @@ public class Terminal {
         return colorStr;
     }
     
- 
+    
     public void setBgColor(Color color) {
     }
     
- 
     
-  
     public void moveCursor(Direction direction, Integer amount) {
         if (direction == Direction.FORWARD) {
             System.out.print(String.format("\033[%sC", amount));
@@ -194,12 +195,12 @@ public class Terminal {
         }
     }
     
-
+    
     public void setChar(char c) {
         System.out.print(c); // TODO nem tudom mit kell csinálni
     }
     
-  
+    
     private void command(String commandString) {
     }
 }
