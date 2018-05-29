@@ -2,6 +2,9 @@ import com.sun.glass.events.KeyEvent;
 
 import javax.swing.*;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class Main {
@@ -10,9 +13,36 @@ public class Main {
         JFrame f = new JFrame();
         System.out.print("\033?1047h");
         System.out.print("\033[0;0f\033[J");
-      //  System.out.print("\033[5;5f" + "Hello World!");
+        //  System.out.print("\033[5;5f" + "Hello World!");
 
-        while (true){
+        java.io.InputStreamReader reader = new java.io.InputStreamReader(System.in);
+        boolean b = false;
+        while(!b)
+        {
+            try
+            {
+                int key = System.in.read();
+                // read a character and process it
+                System.out.println("key pressed");
+                b = true;
+            } catch (java.io.IOException ioex) {
+                System.out.println("IO Exception");
+            }
+            // edit, lets not hog any cpu time
+            try {
+                Thread.sleep(50);
+                System.out.println("nop yet");
+            } catch (InterruptedException ex) {
+                // can't do much about it can we? Ignoring
+                System.out.println("Interrupted Exception");
+            }
+        }
+
+
+            //do something
+        }
+/*
+            in.close();
             f.addKeyListener(new KeyListener() {
                 @Override
                 public void keyTyped(java.awt.event.KeyEvent e) {
@@ -43,10 +73,6 @@ public class Main {
 
                 }
             });
-        }
-
-
-
+            */
     }
 
-}
