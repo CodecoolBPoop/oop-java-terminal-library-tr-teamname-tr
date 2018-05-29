@@ -7,5 +7,5 @@ public enum Attribute {
     UNDERSCORE,
     BLINK,
     REVERSE,
-    HIDDEN;
+    HIDDEN
 }
