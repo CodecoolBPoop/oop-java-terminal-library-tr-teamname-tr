@@ -3,30 +3,10 @@ package com.codecool.termlib;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class Terminal {
-    /**
-     * The beginning of control sequences.
-     */
-    private static final String CONTROL_CODE = "\033[";
-    /**
-     * Command for whole screen clearing.
-     * <p>
-     * Might be partitioned if needed.
-     */
-    private static final String CLEAR = "2J";
-    /**
-     * Command for moving the cursor.
-     */
-    private static final String MOVE = "H";
-    /**
-     * Command for printing style settings.
-     * <p>
-     * Handles foreground color, background color, and any other
-     * styles, for example color brightness, or underlines.
-     */
-    private static final String STYLE = "m";
     
     private static String ttyConfig;
     
@@ -81,6 +61,23 @@ public class Terminal {
         
         // disable character echoing
         stty("-echo");
+    }
+    
+    
+    public static void initScreen(int[][] map) {
+        Terminal.clearScreen();
+        
+        for(int y=0;y<map.length;y++){
+            for(int x=0;x<map[y].length;x++){
+                moveTo(y+1,x+1);
+                
+                System.out.print(map[y][x]);
+            }
+            
+        }
+        
+        
+        
     }
     
     /**
@@ -145,27 +142,13 @@ public class Terminal {
         System.out.print("\033[0;0f\033[J");
     }
     
-    /**
-     * Move cursor to the given position.
-     * <p>
-     * Positions are counted from one.  Cursor position 1,1 is at
-     * the top left corner of the screen.
-     *
-     * @param x Column number.
-     * @param y Row number.
-     */
-    public void moveTo(Integer x, Integer y) {
+ 
+    public static void moveTo(Integer x, Integer y) {
         System.out.print(String.format("\033[%s;%sf", x, y));
     }
     
-    /**
-     * Set the foreground printing color.
-     * <p>
-     * Already printed text is not affected.
-     *
-     * @param color The color to set.
-     */
-    public void setColor(Color color) {
+ 
+    public static String setColor(Color color) {
         String colorStr = "";
         if (color == Color.BLACK) {
             colorStr = "\033[30mBlack";
@@ -186,37 +169,16 @@ public class Terminal {
         } else {
             colorStr = "\033[97mWhite";
         }
+        return colorStr;
     }
     
-    /**
-     * Set the background printing color.
-     * <p>
-     * Already printed text is not affected.
-     *
-     * @param color The background color to set.
-     */
+ 
     public void setBgColor(Color color) {
     }
     
-    /**
-     * Make printed text underlined.
-     * <p>
-     * On some terminals this might produce slanted text instead of
-     * underlined.  Cannot be turned off without turning off colors as
-     * well.
-     */
-    public void setUnderline() {
-    }
+ 
     
-    /**
-     * Move the cursor relatively.
-     * <p>
-     * Move the cursor amount from its current position in the given
-     * direction.
-     *
-     * @param direction Step the cursor in this direction.
-     * @param amount    Step the cursor this many times.
-     */
+  
     public void moveCursor(Direction direction, Integer amount) {
         if (direction == Direction.FORWARD) {
             System.out.print(String.format("\033[%sC", amount));
@@ -232,28 +194,12 @@ public class Terminal {
         }
     }
     
-    /**
-     * Set the character diplayed under the current cursor position.
-     * <p>
-     * The actual cursor position after calling this method is the
-     * same as beforehand.  This method is useful for drawing shapes
-     * (for example frame borders) with cursor movement.
-     *
-     * @param c the literal character to set for the current cursor
-     *          position.
-     */
+
     public void setChar(char c) {
         System.out.print(c); // TODO nem tudom mit kell csinálni
     }
     
-    /**
-     * Helper function for sending commands to the terminal.
-     * <p>
-     * The common parts of different commands shall be assembled here.
-     * The actual printing shall be handled from this command.
-     *
-     * @param commandString The unique part of a command sequence.
-     */
+  
     private void command(String commandString) {
     }
 }
