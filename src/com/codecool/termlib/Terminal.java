@@ -3,7 +3,6 @@ package com.codecool.termlib;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 
 public class Terminal {
@@ -64,13 +63,21 @@ public class Terminal {
     }
     
     
-    public static void draw(int[][] map) {
+    public static void drawWholeArray(int[][] map) {
         
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
                 moveTo(y + 1, x + 1);
-    
-                System.out.print(map[y][x]);
+                
+                switch (map[y][x]) {
+                    case 1:
+                        System.out.print("#");
+                        break;
+                        
+                    default:
+                        System.out.print(" ");
+                }
+                
             }
         }
     }
@@ -150,40 +157,11 @@ public class Terminal {
     }
     
     
-    public static String setColor(Color color) {
-        String colorStr = "";
-        if (color == Color.BLACK) {
-            colorStr = "\033[30mBlack";
-        } else if (color == Color.RED) {
-            colorStr = "\033[31mRed";
-        } else if (color == Color.GREEN) {
-            colorStr = "\033[32mGreen";
-        } else if (color == Color.YELLOW) {
-            colorStr = "\033[33mYellow";
-        } else if (color == Color.BLUE) {
-            colorStr = "\033[34mBlue";
-        } else if (color == Color.MAGENTA) {
-            colorStr = "\033[35mMagenta";
-        } else if (color == Color.CYAN) {
-            colorStr = "\033[36mCyan";
-        } else if (color == Color.WHITE) {
-            colorStr = "\033[97mWhite";
-        } else {
-            colorStr = "\033[97mWhite";
-        }
-        return colorStr;
-    }
-    
-    
-    public void setBgColor(Color color) {
-    }
-    
-    
     public void moveCursor(Direction direction, Integer amount) {
-        if (direction == Direction.FORWARD) {
+        if (direction == Direction.RIGHT) {
             System.out.print(String.format("\033[%sC", amount));
         }
-        if (direction == Direction.BACKWARD) {
+        if (direction == Direction.LEFT) {
             System.out.print(String.format("\033[%sD", amount));
         }
         if (direction == Direction.UP) {

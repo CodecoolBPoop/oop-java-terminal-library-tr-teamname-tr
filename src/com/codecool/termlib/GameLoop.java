@@ -2,15 +2,24 @@ package com.codecool.termlib;
 
 import com.codecool.game.*;
 
+import java.rmi.UnexpectedException;
+
 public class GameLoop {
     
+    
+    
     public static void main(String[] args) {
+        
+        int[][] map = MapReader.mapReader();
+        
+        try {
+            Player player = new Player(Coordinate.getPlayerCoordFromMap(map));
+        } catch (UnexpectedException e) {
+            System.out.print(e);
+        }
+        
         try {
             Terminal.setTerminalToRaw();
-            
-            int[][] map = MapReader.mapReader();
-            Terminal.draw(map);
-            
             
               /*//WHILE
                   // TODO: RESET
@@ -20,9 +29,8 @@ public class GameLoop {
                   */
             boolean endGame = false;
             
-            
             Terminal.clearScreen();
-            Terminal.draw(map);
+            Terminal.drawWholeArray(map);
             
             while (!endGame) {
                 
