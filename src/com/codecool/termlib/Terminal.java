@@ -6,7 +6,7 @@ import java.io.InputStream;
 
 
 public class Terminal {
-    
+
     private static String ttyConfig;
     
     /*public static void main(String[] args) {
@@ -51,44 +51,27 @@ public class Terminal {
         
     }
     */
-    public static void setTerminalToRaw() throws IOException, InterruptedException {
-        
-        ttyConfig = stty("-g");
-        
-        // set the console to be character-buffered instead of line-buffered
-        stty("-icanon min 1");
-        
-        // disable character echoing
-        stty("-echo");
-    }
-    
-    
+
+
     public static void drawWholeArray(int[][] map) {
-        
+
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
-                moveTo(y + 1, x + 1);
-                
+                moveCursorTo(y + 1, x + 1);
+
                 switch (map[y][x]) {
                     case 1:
                         System.out.print("#");
                         break;
-                        
+
                     default:
                         System.out.print(" ");
                 }
-                
+
             }
         }
     }
-    
-    
-    
-    public static void setTerminalToDefault() throws IOException, InterruptedException {
-        ttyConfig = stty("-g");
-        stty("cooked echo");
-    }
-    
+
     /**
      * Execute the stty command with the specified arguments
      * against the current active terminal.
@@ -96,14 +79,14 @@ public class Terminal {
     private static String stty(final String args)
             throws IOException, InterruptedException {
         String cmd = "stty " + args + " < /dev/tty";
-        
+
         return exec(new String[]{
                 "sh",
                 "-c",
                 cmd
         });
     }
-    
+
     /**
      * Execute the specified command and return the output
      * (both stdout and stderr).
@@ -111,52 +94,32 @@ public class Terminal {
     private static String exec(final String[] cmd)
             throws IOException, InterruptedException {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        
+
         Process p = Runtime.getRuntime().exec(cmd);
         int c;
         InputStream in = p.getInputStream();
-        
+
         while ((c = in.read()) != -1) {
             bout.write(c);
         }
-        
+
         in = p.getErrorStream();
-        
+
         while ((c = in.read()) != -1) {
             bout.write(c);
         }
-        
+
         p.waitFor();
-        
+
         String result = new String(bout.toByteArray());
         return result;
     }
-    
-    
-    /**
-     * Reset printing rules in effect to terminal defaults.
-     * <p>
-     * Reset the color, background color, and any other style
-     * (i.e.: underlined, dim, bright) to the terminal defaults.
-     */
-    public void resetStyle() {
-    }
-    
-    /**
-     * Clear the whole screen.
-     * <p>
-     * Might reset cursor position.
-     */
-    public static void clearScreen() {
-        System.out.print("\033[0;0f\033[J");
-    }
-    
-    
-    public static void moveTo(Integer x, Integer y) {
+
+
+    public static void moveCursorTo(Integer x, Integer y) {
         System.out.print(String.format("\033[%s;%sf", x, y));
     }
-    
-    
+
     public void moveCursor(Direction direction, Integer amount) {
         if (direction == Direction.RIGHT) {
             System.out.print(String.format("\033[%sC", amount));
@@ -171,13 +134,34 @@ public class Terminal {
             System.out.print(String.format("\033[%sB", amount));
         }
     }
-    
-    
-    public void setChar(char c) {
-        System.out.print(c); // TODO nem tudom mit kell csinálni
-    }
-    
-    
-    private void command(String commandString) {
+
+    static void runTerminalCommand(TerminalCommands command) throws IOException, InterruptedException {
+        switch (command) {
+            case COLOR_WHITE:
+                System.out.print("\033[47m");
+                break;
+            case COLOR_BLACK:
+                System.out.print("\033[40m");
+                break;
+            case HIDE_CURSOR:
+                System.out.print("\033[?25l");
+                break;
+            case SHOW_CURSOR:
+                System.out.print("\033[?25h");
+                break;
+            case SET_TERMINAL_DEFAULT:
+                ttyConfig = stty("-g");
+                stty("cooked echo");
+                break;
+            case SET_TERMINAL_RAW:
+                ttyConfig = stty("-g");
+                // set the console to be character-buffered instead of line-buffered
+                stty("-icanon min 1");
+                // disable character echoing
+                stty("-echo");
+                break;
+            case CLEAR_TERMINAL:
+                System.out.print("\033[0;0f\033[J");
+        }
     }
 }

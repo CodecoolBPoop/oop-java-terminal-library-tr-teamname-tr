@@ -13,8 +13,7 @@ import java.util.Scanner;
 
 public class MapReader {
     private static final String MAP1 = "map.txt";
-    
-    
+
     
     public static int[][] mapReader() {
         
@@ -32,11 +31,7 @@ public class MapReader {
                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         };
-        
-        
-        
-        
-        
+
         /*try {
             Scanner fileReader = new Scanner(new BufferedReader(new FileReader(MapReader.MAP1)));
             
