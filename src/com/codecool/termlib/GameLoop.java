@@ -18,7 +18,10 @@ public class GameLoop {
         } catch (UnexpectedException e) {
             System.out.print(e);
             player = new Player(new Coordinate(1, 1));
+
         }
+
+
 
         try {
              /*//WHILE
@@ -33,9 +36,30 @@ public class GameLoop {
             Terminal.runTerminalCommand(TerminalCommands.HIDE_CURSOR);
             Terminal.runTerminalCommand(TerminalCommands.CLEAR_TERMINAL);
             Terminal.drawWholeArray(map);
+            Terminal.moveCursorTo(player.getCoordinates().getxPos(), player.getCoordinates().getyPos());
+            Terminal.runTerminalCommand(TerminalCommands.SAVE_CURSOR_POSITION);
+            player.drawPlayer();
 
             while (!endGame) {
-                Terminal.drawWholeArray(map);
+               // Terminal.drawWholeArray(map);
+               // player.drawPlayer();
+
+                if (System.in.available() != 0) {
+                    int c = System.in.read();
+                    if (c == '0') {
+                        System.out.println("Exited from game loop");
+                        break;
+                    } else if (c == 'w') {
+                        player.move(Direction.UP, 1);
+                    } else if (c == 'a') {
+                        player.move(Direction.LEFT, 1);
+                    } else if (c == 's') {
+                        player.move(Direction.DOWN, 1);
+                    } else if (c == 'd') {
+                        player.move(Direction.RIGHT, 1);
+                    }
+
+                }
                 player.drawPlayer();
                 Thread.sleep(64);
             }

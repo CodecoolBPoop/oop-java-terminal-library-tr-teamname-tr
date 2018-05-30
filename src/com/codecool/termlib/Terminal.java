@@ -116,8 +116,8 @@ public class Terminal {
     }
 
 
-    public static void moveCursorTo(Integer x, Integer y) {
-        System.out.print(String.format("\033[%s;%sf", x, y));
+    public static void moveCursorTo(Integer y, Integer x) {
+        System.out.print(String.format("\033[%s;%sf", y, x));
     }
 
     public void moveCursor(Direction direction, Integer amount) {
@@ -162,6 +162,13 @@ public class Terminal {
                 break;
             case CLEAR_TERMINAL:
                 System.out.print("\033[0;0f\033[J");
+                break;
+            case SAVE_CURSOR_POSITION:
+                System.out.print("\0337");
+                break;
+            case RESTORE_CURSOR_POSITION:
+                System.out.print("\0338");
+                break;
         }
     }
 }
