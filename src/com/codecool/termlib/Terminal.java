@@ -8,50 +8,6 @@ import java.io.InputStream;
 public class Terminal {
 
     private static String ttyConfig;
-    
-    /*public static void main(String[] args) {
-        
-        try {
-            setTerminalToRaw();
-            
-            int i = 0;
-            while (i < 30000) {
-                
-                //System.out.println( ""+ i++ );
-                
-                if (System.in.available() != 0) {
-                    int c = System.in.read();
-                    if (c == '0') {
-                        System.out.println("You hit 0");
-                        break;
-                    } else if (c == 'w') {
-                        System.out.println("w");
-                    } else if (c == 'a') {
-                        System.out.println("a");
-                    } else if (c == 's') {
-                        System.out.println("s");
-                    } else if (c == 'd') {
-                        System.out.println("d");
-                    }
-                }
-                
-                
-            } // end while
-        } catch (IOException e) {
-            System.err.println("IOException");
-        } catch (InterruptedException e) {
-            System.err.println("InterruptedException");
-        } finally {
-            try {
-                stty(ttyConfig.trim());
-            } catch (Exception e) {
-                System.err.println("Exception restoring tty config");
-            }
-        }
-        
-    }
-    */
-
 
     public static void drawWholeArray(int[][] map) {
 
@@ -60,10 +16,39 @@ public class Terminal {
                 moveCursorTo(y + 1, x + 1);
 
                 switch (map[y][x]) {
-                    case 1:
-                        System.out.print("#");
+                    case 2:
+                        System.out.print("║");
                         break;
-
+                    case 3:
+                        System.out.print("═");
+                        break;
+                    case 4:
+                        System.out.print("╔");
+                        break;
+                    case 5:
+                        System.out.print("╗");
+                        break;
+                    case 6:
+                        System.out.print("╚");
+                        break;
+                    case 7:
+                        System.out.print("╝");
+                        break;
+                    case 8:
+                        System.out.print("╠");
+                        break;
+                    case 9:
+                        System.out.print("╣");
+                        break;
+                    case 10:
+                        System.out.print("╦");
+                        break;
+                    case 11:
+                        System.out.print("╩");
+                        break;
+                    case 12:
+                        System.out.print("╬");
+                        break;
                     default:
                         System.out.print(" ");
                 }
@@ -115,24 +100,8 @@ public class Terminal {
         return result;
     }
 
-
     public static void moveCursorTo(Integer y, Integer x) {
         System.out.print(String.format("\033[%s;%sf", y, x));
-    }
-
-    public void moveCursor(Direction direction, Integer amount) {
-        if (direction == Direction.RIGHT) {
-            System.out.print(String.format("\033[%sC", amount));
-        }
-        if (direction == Direction.LEFT) {
-            System.out.print(String.format("\033[%sD", amount));
-        }
-        if (direction == Direction.UP) {
-            System.out.print(String.format("\033[%sA", amount));
-        }
-        if (direction == Direction.DOWN) {
-            System.out.print(String.format("\033[%sB", amount));
-        }
     }
 
     static void runTerminalCommand(TerminalCommands command) throws IOException, InterruptedException {
