@@ -22,8 +22,10 @@ public class GameLoop {
             
             
             Terminal.clearScreen();
+            Terminal.draw(map);
+            
             while (!endGame) {
-                Terminal.draw(map);
+                
                 Thread.sleep(64);
             }
             

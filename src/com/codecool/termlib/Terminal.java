@@ -69,14 +69,13 @@ public class Terminal {
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
                 moveTo(y + 1, x + 1);
-                
+    
                 System.out.print(map[y][x]);
             }
-            
         }
-        
-        
     }
+    
+    
     
     public static void setTerminalToDefault() throws IOException, InterruptedException {
         ttyConfig = stty("-g");
