@@ -1,12 +1,12 @@
 package com.codecool.termlib;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 
- class Terminal {
-
+class Terminal {
+    
+    private static final int TOILET_SPEED = 120;
+    
     public static void drawWholeArray(int[][] map) {
 
         for (int y = 0; y < map.length; y++) {
@@ -77,7 +77,7 @@ import java.io.InputStream;
      * Execute the specified command and return the output
      * (both stdout and stderr).
      */
-    private static String exec(final String[] cmd)
+    public static String exec(final String[] cmd)
             throws IOException, InterruptedException {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
@@ -144,4 +144,18 @@ import java.io.InputStream;
                 break;
         }
     }
+    public static void toiletPrint(String endText) throws IOException, InterruptedException {
+            for (int i = 0; i <= endText.length(); i++) {
+                Terminal.runTerminalCommand(TerminalCommands.CLEAR_TERMINAL);
+                String line;
+                Process p = Runtime.getRuntime().exec("toilet --filter gay --filter border -w 300 \"" +
+                        endText.substring(0,i) + "\"");
+                BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                while ((line = input.readLine()) != null) {
+                    System.out.println(line);
+                }
+                input.close();
+                Thread.sleep(TOILET_SPEED);
+            }
+        }
 }
