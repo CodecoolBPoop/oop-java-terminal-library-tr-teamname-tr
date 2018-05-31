@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class Terminal {
-
-    private static String ttyConfig;
+ class Terminal {
 
     public static void drawWholeArray(int[][] map) {
 
@@ -61,11 +59,11 @@ public class Terminal {
      * Execute the stty command with the specified arguments
      * against the current active terminal.
      */
-    private static String stty(final String args)
+    private static void stty(final String args)
             throws IOException, InterruptedException {
         String cmd = "stty " + args + " < /dev/tty";
 
-        return exec(new String[]{
+        exec(new String[]{
                 "sh",
                 "-c",
                 cmd
@@ -96,8 +94,7 @@ public class Terminal {
 
         p.waitFor();
 
-        String result = new String(bout.toByteArray());
-        return result;
+        return new String(bout.toByteArray());
     }
 
     public static void moveCursorTo(Integer y, Integer x) {
@@ -119,11 +116,9 @@ public class Terminal {
                 System.out.print("\033[?25h");
                 break;
             case SET_TERMINAL_DEFAULT:
-                ttyConfig = stty("-g");
                 stty("cooked echo");
                 break;
             case SET_TERMINAL_RAW:
-                ttyConfig = stty("-g");
                 // set the console to be character-buffered instead of line-buffered
                 stty("-icanon min 1");
                 // disable character echoing

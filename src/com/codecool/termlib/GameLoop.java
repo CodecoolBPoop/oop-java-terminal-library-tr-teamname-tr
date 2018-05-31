@@ -4,7 +4,7 @@ import com.codecool.game.*;
 
 import java.rmi.UnexpectedException;
 
-public class GameLoop {
+ class GameLoop {
 
     // Mezi run cmd
     // " java -classpath /mnt/e/CC/OOP/terminal-library/out/production/terminal-library/com/codecool/termlib/GameLoop "
@@ -20,7 +20,6 @@ public class GameLoop {
             player = new Player(new Coordinate(1, 1));
 
         }
-
 
 
         try {
@@ -41,8 +40,8 @@ public class GameLoop {
             player.drawPlayer();
 
             while (!endGame) {
-               // Terminal.drawWholeArray(map);
-               // player.drawPlayer();
+                // Terminal.drawWholeArray(map);
+                // player.drawPlayer();
 
                 if (System.in.available() != 0) {
                     int c = System.in.read();
@@ -50,13 +49,13 @@ public class GameLoop {
                         System.out.println("Exited from game loop");
                         break;
                     } else if (c == 'w') {
-                        player.move(Direction.UP, 1);
+                        player.move(Direction.UP, map);
                     } else if (c == 'a') {
-                        player.move(Direction.LEFT, 1);
+                        player.move(Direction.LEFT, map);
                     } else if (c == 's') {
-                        player.move(Direction.DOWN, 1);
+                        player.move(Direction.DOWN, map);
                     } else if (c == 'd') {
-                        player.move(Direction.RIGHT, 1);
+                        player.move(Direction.RIGHT, map);
                     }
 
                 }

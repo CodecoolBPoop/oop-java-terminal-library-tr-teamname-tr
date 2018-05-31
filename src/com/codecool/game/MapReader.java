@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class MapReader {
     private static final String MAP1 = "map.txt";
 
-
     public static int[][] mapReader() {
 
         return new int[][]{
@@ -41,6 +40,8 @@ public class MapReader {
                 {2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2},
                 {6, 3, 3, 3, 3, 3, 3,11, 3,11, 3, 3,11, 3,11, 3, 3, 3, 3, 3, 3,11, 3,11, 3, 3, 3,11, 3, 3, 3, 3, 3,11, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,11, 3,11, 3, 3, 3, 3, 3, 3, 3, 3, 3,11, 3,11, 3, 7}
         };
+
+
 
         /*try {
             Scanner fileReader = new Scanner(new BufferedReader(new FileReader(MapReader.MAP1)));
