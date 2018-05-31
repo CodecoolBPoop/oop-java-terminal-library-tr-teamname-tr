@@ -1,9 +1,6 @@
 package com.codecool.termlib;
 
-import java.rmi.UnexpectedException;
-import java.rmi.server.ExportException;
-
-public class Player {
+class Player {
     //Constructor
     Player(Coordinate coords) {
         this.coordinates = coords;
@@ -33,31 +30,31 @@ public class Player {
 
     }
 
-    void move(Direction direction, int amount, int[][] map) {
+    void move(Direction direction, int[][] map) {
         int pX = this.coordinates.getxPos();
         int pY = this.coordinates.getyPos();
         switch (direction) {
             case UP:
                 if (!Coordinate.isColliding(pX, --pY, map)) {
-                    coordinates.alterYPos(-amount);
+                    coordinates.alterYPos(-1);
                 }
                 break;
 
             case DOWN:
                 if (!Coordinate.isColliding(pX, ++pY, map)) {
-                    coordinates.alterYPos(amount);
+                    coordinates.alterYPos(1);
                 }
                 break;
 
             case RIGHT:
                 if (!Coordinate.isColliding(++pX, pY, map)) {
-                    coordinates.alterXPos(amount);
+                    coordinates.alterXPos(1);
                 }
                 break;
 
             case LEFT:
                 if (!Coordinate.isColliding(--pX, pY, map)) {
-                    coordinates.alterXPos(-amount);
+                    coordinates.alterXPos(-1);
                 }
                 break;
         }

@@ -2,9 +2,9 @@ package com.codecool.termlib;
 
 import java.rmi.UnexpectedException;
 
-public class Coordinate {
+class Coordinate {
 
-    public Coordinate(int posX, int posY) {
+    Coordinate(int posX, int posY) {
         this.xPos = posX;
         this.yPos = posY;
     }
@@ -18,29 +18,22 @@ public class Coordinate {
          * */
     }
 
-    public int getxPos() {
+    int getxPos() {
         return xPos;
     }
 
-    public void setxPos(int xPos) {
-        this.xPos = xPos;
-    }
 
     private int xPos;
 
-    public int getyPos() {
+    int getyPos() {
         return yPos;
     }
 
-    public void setyPos(int yPos) {
-        this.yPos = yPos;
-    }
-
-    public void alterYPos(int amount) {
+    void alterYPos(int amount) {
         this.yPos += amount;
     }
 
-    public void alterXPos(int amount) {
+    void alterXPos(int amount) {
         this.xPos += amount;
     }
 
