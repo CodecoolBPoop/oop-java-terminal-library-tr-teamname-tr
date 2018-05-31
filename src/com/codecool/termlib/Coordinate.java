@@ -2,7 +2,7 @@ package com.codecool.termlib;
 
 import java.rmi.UnexpectedException;
 
-class Coordinate {
+public class Coordinate {
 
     Coordinate(int posX, int posY) {
         this.xPos = posX;

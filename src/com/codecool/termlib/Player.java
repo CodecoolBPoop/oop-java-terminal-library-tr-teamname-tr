@@ -17,10 +17,10 @@ class Player {
         try {
 
             Terminal.runTerminalCommand(TerminalCommands.RESTORE_CURSOR_POSITION);
-            Terminal.runTerminalCommand(TerminalCommands.COLOR_BLACK);
+            Terminal.runTerminalCommand(TerminalCommands.COLOR_BG_DEFAULT);
             System.out.print(" ");
             Terminal.moveCursorTo(this.coordinates.getyPos() + 1, this.coordinates.getxPos() + 1);
-            Terminal.runTerminalCommand(TerminalCommands.COLOR_WHITE);
+            Terminal.runTerminalCommand(TerminalCommands.COLOR_BG_WHITE);
             Terminal.runTerminalCommand(TerminalCommands.SAVE_CURSOR_POSITION);
             System.out.print("*");
 
