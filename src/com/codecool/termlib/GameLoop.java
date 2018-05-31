@@ -22,7 +22,6 @@ public class GameLoop {
         }
 
 
-
         try {
              /*//WHILE
                   // TODO: RESET
@@ -41,8 +40,8 @@ public class GameLoop {
             player.drawPlayer();
 
             while (!endGame) {
-               // Terminal.drawWholeArray(map);
-               // player.drawPlayer();
+                // Terminal.drawWholeArray(map);
+                // player.drawPlayer();
 
                 if (System.in.available() != 0) {
                     int c = System.in.read();
@@ -50,13 +49,13 @@ public class GameLoop {
                         System.out.println("Exited from game loop");
                         break;
                     } else if (c == 'w') {
-                        player.move(Direction.UP, 1);
+                        player.move(Direction.UP, 1, map);
                     } else if (c == 'a') {
-                        player.move(Direction.LEFT, 1);
+                        player.move(Direction.LEFT, 1, map);
                     } else if (c == 's') {
-                        player.move(Direction.DOWN, 1);
+                        player.move(Direction.DOWN, 1,map);
                     } else if (c == 'd') {
-                        player.move(Direction.RIGHT, 1);
+                        player.move(Direction.RIGHT, 1, map);
                     }
 
                 }

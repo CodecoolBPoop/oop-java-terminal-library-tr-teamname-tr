@@ -9,8 +9,7 @@ public class Player {
         this.coordinates = coords;
     }
 
-
-    public Coordinate getCoordinates() {
+    Coordinate getCoordinates() {
         return coordinates;
     }
 
@@ -19,35 +18,47 @@ public class Player {
 
     void drawPlayer() {
         try {
+
             Terminal.runTerminalCommand(TerminalCommands.RESTORE_CURSOR_POSITION);
             Terminal.runTerminalCommand(TerminalCommands.COLOR_BLACK);
             System.out.print(" ");
-            Terminal.moveCursorTo(this.coordinates.getyPos()+1, this.coordinates.getxPos()+1);
+            Terminal.moveCursorTo(this.coordinates.getyPos() + 1, this.coordinates.getxPos() + 1);
             Terminal.runTerminalCommand(TerminalCommands.COLOR_WHITE);
             Terminal.runTerminalCommand(TerminalCommands.SAVE_CURSOR_POSITION);
             System.out.print("*");
+
         } catch (Exception e) {
             System.out.print(e);
         }
 
     }
 
-    public void move(Direction direction, int amount) {
+    void move(Direction direction, int amount, int[][] map) {
+        int pX = this.coordinates.getxPos();
+        int pY = this.coordinates.getyPos();
         switch (direction) {
             case UP:
-                coordinates.alterYPos(-1 * amount);
+                if (!Coordinate.isColliding(pX, --pY, map)) {
+                    coordinates.alterYPos(-amount);
+                }
                 break;
 
             case DOWN:
-                coordinates.alterYPos(amount);
+                if (!Coordinate.isColliding(pX, ++pY, map)) {
+                    coordinates.alterYPos(amount);
+                }
                 break;
 
             case RIGHT:
-                coordinates.alterXPos(amount);
+                if (!Coordinate.isColliding(++pX, pY, map)) {
+                    coordinates.alterXPos(amount);
+                }
                 break;
 
             case LEFT:
-                coordinates.alterXPos(-1 * amount);
+                if (!Coordinate.isColliding(--pX, pY, map)) {
+                    coordinates.alterXPos(-amount);
+                }
                 break;
         }
     }
