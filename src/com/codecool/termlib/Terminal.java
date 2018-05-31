@@ -103,10 +103,10 @@ import java.io.InputStream;
 
     static void runTerminalCommand(TerminalCommands command) throws IOException, InterruptedException {
         switch (command) {
-            case COLOR_WHITE:
+            case COLOR_BG_WHITE:
                 System.out.print("\033[47m");
                 break;
-            case COLOR_BLACK:
+            case COLOR_BG_BLACK:
                 System.out.print("\033[40m");
                 break;
             case HIDE_CURSOR:
@@ -132,6 +132,12 @@ import java.io.InputStream;
                 break;
             case RESTORE_CURSOR_POSITION:
                 System.out.print("\0338");
+                break;
+            case COLOR_BG_DEFAULT:
+                System.out.print("\033[49m");
+                break;
+            case COLOR_FG_DEFAULT:
+                System.out.print("\033[39m");
                 break;
         }
     }
