@@ -14,6 +14,9 @@ import java.io.InputStream;
                 moveCursorTo(y + 1, x + 1);
 
                 switch (map[y][x]) {
+                    case -1:
+                        System.out.print(" ");
+                        break;
                     case 2:
                         System.out.print("║");
                         break;

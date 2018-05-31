@@ -17,6 +17,10 @@ public class Coordinate {
          * 2 & above: walls
          * */
     }
+    static boolean isExit(int xCoord, int yCoord, int[][] map) {
+        return (map[yCoord][xCoord] == -1);
+        
+    }
 
     int getxPos() {
         return xPos;
