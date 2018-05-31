@@ -20,8 +20,7 @@ import java.rmi.UnexpectedException;
             player = new Player(new Coordinate(1, 1));
 
         }
-
-
+        
         try {
              /*//WHILE
                   // TODO: RESET
@@ -35,7 +34,7 @@ import java.rmi.UnexpectedException;
             Terminal.runTerminalCommand(TerminalCommands.HIDE_CURSOR);
             Terminal.runTerminalCommand(TerminalCommands.CLEAR_TERMINAL);
             Terminal.drawWholeArray(map);
-            Terminal.moveCursorTo(player.getCoordinates().getxPos(), player.getCoordinates().getyPos());
+            Terminal.moveCursorTo(player.getCoordinates().getxPos() + 1, player.getCoordinates().getyPos() + 1);
             Terminal.runTerminalCommand(TerminalCommands.SAVE_CURSOR_POSITION);
             player.drawPlayer();
 

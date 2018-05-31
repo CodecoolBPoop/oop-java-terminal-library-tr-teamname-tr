@@ -15,7 +15,6 @@ class Player {
 
     void drawPlayer() {
         try {
-
             Terminal.runTerminalCommand(TerminalCommands.RESTORE_CURSOR_POSITION);
             Terminal.runTerminalCommand(TerminalCommands.COLOR_BG_DEFAULT);
             System.out.print(" ");
